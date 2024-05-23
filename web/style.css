@@ -1,0 +1,49 @@
+body, html {
+    margin: 0 auto
+}
+
+body {
+    /* background-color: red; */
+    color: rgb(222, 222, 222);
+    font-family: "Ubuntu", sans-serif;
+    background-color: rgba(48, 48, 48, 1);
+}
+
+.input {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+}
+
+.input input {
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    border: none;
+    border-top: 1px solid;
+    outline: none;
+}
+
+.keyboard {
+    position: fixed;
+    display: flex;
+    justify-content: end;
+    width: 60px;
+    right: 10px;
+}
+
+.keyboard img {
+    width: 30px;
+    height:  30px;
+}
+
+.answer {
+    margin-left: 20px;
+    margin-bottom: 40px;
+}
+
+.answer h2 {
+    font-family: "Ubuntu", sans-serif;
+}

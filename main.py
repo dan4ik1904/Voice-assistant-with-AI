@@ -1,11 +1,10 @@
 import json, pyaudio, requests
 from vosk import Model, KaldiRecognizer
-import pyttsx3
 from gtts import gTTS
 import os
+import eel
+import pygame
 
-
-gpt_token= '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'
 
 model = Model('model')
 rec = KaldiRecognizer(model, 16000)
@@ -27,16 +26,41 @@ def listen():
             answer = json.loads(rec.Result())
             if answer['text']:
                 yield answer['text']
-print('Start listening...')
-for text in listen():
+    
+
+@eel.expose
+def start_listen():
+    print('Start listening...')
+    listen()
+    gpt_text = None
+    for text in listen():
+        print(text)
+        gpt_text = gpt(f'{text}')
+        print(gpt_text)
+        tts = gTTS(gpt_text, lang='ru')
+        tts.save('voice.mp3')
+        pygame.init()
+        song = pygame.mixer.Sound('voice.mp3')
+        clock = pygame.time.Clock()
+        song.play()
+        return gpt_text
+    
+@eel.expose
+def send(text):
     print(text)
-    gpt_text = gpt(f'{text}')
+    gpt_text = gpt(text)
     print(gpt_text)
     tts = gTTS(gpt_text, lang='ru')
     tts.save('voice.mp3')
-    os.system("voice.mp3")
-    
+    pygame.init()
+    song = pygame.mixer.Sound('voice.mp3')
+    clock = pygame.time.Clock()
+    song.play()
+    return gpt_text
 
 
-listen()
+
+
+eel.init('web')
+eel.start('index.html', size=(500, 500))
     
