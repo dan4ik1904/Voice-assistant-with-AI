@@ -11,31 +11,42 @@
 </head>
 <body>
     <div class="answer">
+        <h2 id="answer-you"></h2>
         <h2 id="answer">Привет!</h2>
     </div>
     <div class="input">
         <input type="text" id="text">
         <div class="keyboard">
-            <img src="./send.png" onclick="send()" alt="">
-            <img src="./au.png" onclick="start()" alt="" id="au">
+            <img src="./send.png" onclick="sendText()" alt="">
+            <img src="./au.png" onclick="listen()" alt="" id="au">
         </div>
     </div>
 <script src="eel.js"></script>
 <script>
     const answer = document.getElementById('answer')
-    function start() {
+    const answerYou = document.getElementById('answer-you')
+    function listen() {
+        answer.innerText = 'Говорите...'
         eel.start_listen()()
-        .then(res => {
-            answer.innerText = res
+        .then(text => {
+            answerYou.innerText = `-${text}`
+            send(text)
         })
     }
-    function send() {
+    function sendText() {
         const text = document.getElementById('text').value
+        document.getElementById('answer-you').innerText = `-${text}`
+        send(text)
+        .then(res => {
+            document.getElementById('answer-you').innerText = `-${res}`
+        })
+    }
+    function send(text) {
         console.log(text)
+        answer.innerText = 'Ожидание...'
         eel.send(text)()
         .then(res => {
-            console.log(res)
-            answer.innerText = res
+            answer.innerText = `-${res}`
         })
     }
 </script>

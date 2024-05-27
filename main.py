@@ -32,18 +32,8 @@ def listen():
 def start_listen():
     print('Start listening...')
     listen()
-    gpt_text = None
     for text in listen():
-        print(text)
-        gpt_text = gpt(f'{text}')
-        print(gpt_text)
-        tts = gTTS(gpt_text, lang='ru')
-        tts.save('voice.mp3')
-        pygame.init()
-        song = pygame.mixer.Sound('voice.mp3')
-        clock = pygame.time.Clock()
-        song.play()
-        return gpt_text
+        return text
     
 @eel.expose
 def send(text):
@@ -62,5 +52,5 @@ def send(text):
 
 
 eel.init('web')
-eel.start('index.html', size=(500, 500))
+eel.start('index.html', size=(430, 500))
     
