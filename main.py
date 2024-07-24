@@ -14,9 +14,27 @@ stream.start_stream()
 
 
 def gpt(prompt):
-    r = requests.get(f'http://localhost:3000?text={prompt}')
-    print(r.json())
-    return r.json()['result']
+    options = {
+    'method': 'POST',
+    'url': 'https://open-ai21.p.rapidapi.com/chatgpt',
+    'headers': {
+        'content-type': 'application/json',
+        'X-RapidAPI-Key': '43631ce4f1msh20404de13215b39p1dc626jsn3ef12746d123',
+        'X-RapidAPI-Host': 'open-ai21.p.rapidapi.com'
+    },
+    'json': {
+        'messages': [
+            {
+                'role': 'user',
+                'content': prompt 
+            }
+        ],
+        'web_access': False
+        }
+    }
+
+    response = requests.request(**options)
+    return response.json()
 
 
 def listen():
@@ -38,7 +56,7 @@ def start_listen():
 @eel.expose
 def send(text):
     print(text)
-    gpt_text = gpt(text)
+    gpt_text = gpt(text)['result']
     print(gpt_text)
     tts = gTTS(gpt_text, lang='ru')
     tts.save('voice.mp3')
@@ -53,4 +71,5 @@ def send(text):
 
 eel.init('web')
 eel.start('index.html', size=(430, 500))
+
     
