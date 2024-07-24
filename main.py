@@ -1,7 +1,6 @@
 import json, pyaudio, requests
 from vosk import Model, KaldiRecognizer
 from gtts import gTTS
-import os
 import eel
 import pygame
 
