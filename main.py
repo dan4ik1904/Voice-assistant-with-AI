@@ -18,8 +18,8 @@ def gpt(prompt):
     'url': 'https://open-ai21.p.rapidapi.com/chatgpt',
     'headers': {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': '43631ce4f1msh20404de13215b39p1dc626jsn3ef12746d123',
-        'X-RapidAPI-Host': 'open-ai21.p.rapidapi.com'
+        'X-RapidAPI-Key': 'Your API-Key',
+        'X-RapidAPI-Host': 'Your API-Host'
     },
     'json': {
         'messages': [
